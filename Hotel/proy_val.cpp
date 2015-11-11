@@ -164,7 +164,22 @@ void techos(){
 				glPopMatrix();//regresa al origen
 				glPushMatrix();//escalera
 					glTranslatef(0,0,-63.5);//va al centro del ducto de las escaleras
-					fig2.prisma(entrepiso,20,10,techo.GLindex);//dibuja el techo de las escaleras
+					glPushMatrix();
+						glTranslatef(-8,0,0);
+						fig2.prisma(entrepiso,4,10,techo.GLindex);//dibuja el techo de las escaleras parte 1
+					glPopMatrix();
+					glPushMatrix();
+						glTranslatef(8,0,0);
+						fig2.prisma(entrepiso,4,10,techo.GLindex);//dibuja el techo de las escaleras parte 2
+					glPopMatrix();
+					glPushMatrix();
+						glTranslatef(0,0,-4.5);
+						fig2.prisma(entrepiso,12,1,techo.GLindex);//dibuja el techo de las escaleras parte 3
+					glPopMatrix();
+					glPushMatrix();
+						glTranslatef(0,0,4.5);
+						fig2.prisma(entrepiso,12,1,techo.GLindex);//dibuja el techo de las escaleras parte 4
+					glPopMatrix();
 				glPopMatrix();//regresa al origen
 				glPushMatrix();//izq-escalera
 					glTranslatef(-24.75,0,-66.375);//va al centro del techo costado izquierdo de las escaleras
