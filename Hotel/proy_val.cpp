@@ -67,8 +67,8 @@ CFiguras fig2;
 Inicio variables para el proyecto
 */
 float entrepiso = 2;
-float movelevador=4.0;
-float poselevador=4.0;
+double movelevador=4.000000;
+double poselevador=4.000000;
 bool g_fanimacion = false;
 /*
 Fin variables para el proyecto
@@ -971,14 +971,17 @@ void animacion()//Para que el elevador se mueva
 {	
 	if(g_fanimacion)
 	{
-		if (poselevador==movelevador)
-		{
+		if (poselevador==movelevador){
+			g_fanimacion=false;
 		}else if(poselevador>movelevador){
-			movelevador+=0.1;
+				movelevador=movelevador+0.000001;
+				movelevador=ceil(movelevador);
 		}else if(poselevador<movelevador){
-			movelevador-=0.1;
+				movelevador-=0.000001;
+				movelevador=floor(movelevador);
 		}
 	}
+	printf("%f\t",movelevador);
 	glutPostRedisplay();
 }
 
@@ -1006,35 +1009,35 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 			break;
 
 		case '0':		//elevador se mueve a planta baja
-				poselevador=4.0;
+				poselevador=4.000000;
 				g_fanimacion=true;
 			break;
 		case '1':		//elevador se mueve a primer piso
-			poselevador=14.0;
+			poselevador=14.000000;
 			g_fanimacion=true;
 			break;
 
 		case '2':		//elevador se mueve a segundo piso
-			poselevador=24.0;
+			poselevador=24.000000;
 			g_fanimacion=true;
 			break;
 
 		case '3':		//elevador se mueve a tercer piso
-			poselevador=34.0;
+			poselevador=34.000000;
 			g_fanimacion=true;
 			break;
 		case '4':		//elevador se mueve a cuarto piso
-			poselevador=44.0;
+			poselevador=44.000000;
 			g_fanimacion=true;
 			break;
 
 		case '5':		//elevador se mueve a quinto piso
-			poselevador=54.0;
+			poselevador=54.000000;
 			g_fanimacion=true;
 			break;
 
 		case '6':		//elevador se mueve a sexto piso	
-			poselevador=64.0;
+			poselevador=64.000000;
 			g_fanimacion=true;
 			break;
 		case 27:        // Cuando Esc es presionado...
@@ -1084,7 +1087,6 @@ void arrow_keys ( int a_keys, int x, int y )  // Funcion para manejo de teclas e
   }
   glutPostRedisplay();
 }
-
 
 int main ( int argc, char** argv )   // Main Function
 {
