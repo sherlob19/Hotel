@@ -67,6 +67,9 @@ CFiguras fig2;
 Inicio variables para el proyecto
 */
 float entrepiso = 2;
+float movelevador=4.0;
+float poselevador=4.0;
+bool g_fanimacion = false;
 /*
 Fin variables para el proyecto
 */
@@ -259,6 +262,9 @@ Despues del ultimo piso le agrego 3 para la barda en la azotea
 */
 void muros6P(float largo,float prof){
 	fig2.prisma(73,largo,prof,muro.GLindex);
+}
+void elevator(){
+	fig2.prisma(8,12,7.5,elevador.GLindex);
 }
 /*
 Función para los muros de la parte 1, ya que aqui pongo 3 metros para la
@@ -919,7 +925,10 @@ void display ( void )   // Creamos la funcion donde se dibuja
 				muros();
 			glPopMatrix();
 			//aqui podría continuar desde la base del escenario
-			
+			glPushMatrix();
+				glTranslatef(0,movelevador,-63.75);
+				elevator();
+			glPopMatrix();
 
 		glPopMatrix();
 	glPopMatrix();
@@ -937,17 +946,6 @@ void display ( void )   // Creamos la funcion donde se dibuja
 
 	glutSwapBuffers ( );
 
-}
-
-void animacion()
-{
-	/*fig2.text_izq-= 0.001;
-	fig2.text_der-= 0.001;
-	if(fig2.text_izq<-1)
-		fig2.text_izq=0;
-	if(fig2.text_der<0)
-		fig2.text_der=1;*/
-	glutPostRedisplay();
 }
 
 void reshape ( int width , int height )   // Creamos funcion Reshape
@@ -968,6 +966,20 @@ void reshape ( int width , int height )   // Creamos funcion Reshape
 
 	glMatrixMode(GL_MODELVIEW);							// Seleccionamos Modelview Matrix
 	glLoadIdentity();
+}
+void animacion()//Para que el elevador se mueva
+{	
+	if(g_fanimacion)
+	{
+		if (poselevador==movelevador)
+		{
+		}else if(poselevador>movelevador){
+			movelevador+=0.1;
+		}else if(poselevador<movelevador){
+			movelevador-=0.1;
+		}
+	}
+	glutPostRedisplay();
 }
 
 void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
@@ -993,25 +1005,45 @@ void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
 			objCamera.Strafe_Camera( CAMERASPEED+0.4 );
 			break;
 
-		case 'r':		//
+		case '0':		//elevador se mueve a planta baja
+				poselevador=4.0;
+				g_fanimacion=true;
+			break;
+		case '1':		//elevador se mueve a primer piso
+			poselevador=14.0;
+			g_fanimacion=true;
 			break;
 
-		case 'R':		//
+		case '2':		//elevador se mueve a segundo piso
+			poselevador=24.0;
+			g_fanimacion=true;
 			break;
 
-		case 'f':		//
-		case 'F':
-			
+		case '3':		//elevador se mueve a tercer piso
+			poselevador=34.0;
+			g_fanimacion=true;
+			break;
+		case '4':		//elevador se mueve a cuarto piso
+			poselevador=44.0;
+			g_fanimacion=true;
 			break;
 
+		case '5':		//elevador se mueve a quinto piso
+			poselevador=54.0;
+			g_fanimacion=true;
+			break;
+
+		case '6':		//elevador se mueve a sexto piso	
+			poselevador=64.0;
+			g_fanimacion=true;
+			break;
 		case 27:        // Cuando Esc es presionado...
 			exit ( 0 );   // Salimos del programa
 			break;        
 		default:        // Cualquier otra
 			break;
   }
-
-  glutPostRedisplay();
+	glutPostRedisplay();
 }
 
 void arrow_keys ( int a_keys, int x, int y )  // Funcion para manejo de teclas especiales (arrow keys)
