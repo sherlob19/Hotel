@@ -981,7 +981,6 @@ void animacion()//Para que el elevador se mueva
 				movelevador=floor(movelevador);
 		}
 	}
-	printf("%f\t",movelevador);
 	glutPostRedisplay();
 }
 
