@@ -57,6 +57,8 @@ CTexture p1;//puertas
 CTexture p2;
 CTexture audit;
 CTexture techo;
+CTexture elevador;
+CTexture negro;
 
 CFiguras fig1;
 CFiguras fig2;
@@ -127,6 +129,14 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	techo.BuildGLTexture();
 	techo.ReleaseImage();
 
+	elevador.LoadTGA("Texturas/acero.tga");
+	elevador.BuildGLTexture();
+	elevador.ReleaseImage();
+
+	negro.LoadTGA("Texturas/negro.tga");
+	negro.BuildGLTexture();
+	negro.ReleaseImage();
+
 
 	objCamera.Position_Camera(0,2.5f,7, 0,2.5f,0, 0, 1, 0);
 
@@ -163,23 +173,23 @@ void techos(){
 					fig2.prisma(entrepiso,77.5,54,techo.GLindex);//dibuja el techo de la parte grande
 				glPopMatrix();//regresa al origen
 				glPushMatrix();//escalera
-					glTranslatef(0,0,-63.5);//va al centro del ducto de las escaleras
+					glTranslatef(0,0,-63.75);//va al centro del ducto de las escaleras
 					glPushMatrix();
 						glTranslatef(-8,0,0);
-						fig2.prisma(entrepiso,4,10,techo.GLindex);//dibuja el techo de las escaleras parte 1
-					glPopMatrix();
+						fig2.prisma(entrepiso,4,9.5,techo.GLindex);//dibuja el techo de las escaleras parte 1
+					glPopMatrix();//regresa al origen
 					glPushMatrix();
 						glTranslatef(8,0,0);
-						fig2.prisma(entrepiso,4,10,techo.GLindex);//dibuja el techo de las escaleras parte 2
-					glPopMatrix();
+						fig2.prisma(entrepiso,4,9.5,techo.GLindex);//dibuja el techo de las escaleras parte 2
+					glPopMatrix();//regresa al origen
 					glPushMatrix();
-						glTranslatef(0,0,-4.5);
+						glTranslatef(0,0,-4.25);
 						fig2.prisma(entrepiso,12,1,techo.GLindex);//dibuja el techo de las escaleras parte 3
-					glPopMatrix();
+					glPopMatrix();//regresa al origen
 					glPushMatrix();
-						glTranslatef(0,0,4.5);
+						glTranslatef(0,0,4.25);
 						fig2.prisma(entrepiso,12,1,techo.GLindex);//dibuja el techo de las escaleras parte 4
-					glPopMatrix();
+					glPopMatrix();//regresa al origen
 				glPopMatrix();//regresa al origen
 				glPushMatrix();//izq-escalera
 					glTranslatef(-24.75,0,-66.375);//va al centro del techo costado izquierdo de las escaleras
@@ -200,8 +210,8 @@ void techos(){
 			glPopMatrix();
 		}
 		glPushMatrix();//escalera
-			glTranslatef(0,69,-63.5);//va al centro del ducto de las escaleras
-			fig2.prisma(entrepiso,20,10,techo.GLindex);//dibuja el techo de las escaleras
+			glTranslatef(0,69,-63.75);//va al centro del ducto de las escaleras
+			fig2.prisma(entrepiso,20,9.5,techo.GLindex);//dibuja el techo de las escaleras
 		glPopMatrix();//regresa al origen
 		glPushMatrix();//ducto-izq
 			glTranslatef(-14,69,-9.5);//va al centro del techo del ducto del lado izquierdo
@@ -596,7 +606,39 @@ void muros(){
 	glPushMatrix();
 		glPushMatrix();//escaleras
 			glTranslatef(0,31.5,-68.75);//el centro es 31.5 pero ya esta en 5
-			muros6P(20,0.5);//dibuja muro atraz
+			glPushMatrix();
+				glTranslatef(0,34,0);
+				fig2.prisma(5,12,0.5,muro.GLindex);//dibuja muro atras parte 1
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(0,-2.5,0);
+				fig2.prisma(68,1,0.5,negro.GLindex);//dibuja muro atras parte 2
+				glTranslatef(-3.25,0,0);
+				fig2.prisma(68,5.5,0.5,elevador.GLindex);//dibuja muro atras parte 3
+				glTranslatef(6.5,0,0);
+				fig2.prisma(68,5.5,0.5,elevador.GLindex);//dibuja muro atras parte 3
+			glPopMatrix();
+			glPushMatrix();
+				glTranslatef(-8,0,0);
+				muros6P(4,0.5);//dibuja muro atras parte 5
+				glTranslatef(16,0,0);
+				muros6P(4,0.5);//dibuja muro atras parte 6
+				glTranslatef(0,0,10);
+				muros6P(4,0.5);//dibuja muro enfrente parte 1
+				glTranslatef(-8,0,0);
+				glPushMatrix();
+					glTranslatef(0,4,0);
+					fig2.prisma(65,12,0.5,muro.GLindex);//dibuja muro enfrente parte 2
+					glTranslatef(0,-36.5,0);
+					fig2.prisma(8,1,0.5,negro.GLindex);//dibuja muro enfrente parte 3
+					glTranslatef(-3.25,0,0);
+					fig2.prisma(8,5.5,0.5,elevador.GLindex);//dibuja muro enfrente parte 4
+					glTranslatef(6.5,0,0);
+					fig2.prisma(8,5.5,0.5,elevador.GLindex);//dibuja muro enfrente parte 5
+				glPopMatrix();
+				glTranslatef(-8,0,0);
+				muros6P(4,0.5);//dibuja muro enfrente parte 6
+			glPopMatrix();
 			glTranslatef(-10.25,0,5);
 			muros6P(0.5,10.5);//dibuja muro izquierdo
 			glTranslatef(20.5,0,0);
